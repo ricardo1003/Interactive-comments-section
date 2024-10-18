@@ -29,6 +29,7 @@ function App() {
                  profilePicture={reply.user.image.png}
                  createdAt={reply.createdAt}
                  score={reply.score}
+                 replyingTo={reply.replyingTo}
                  >
                  {console.log(reply)}
                </Comment>
