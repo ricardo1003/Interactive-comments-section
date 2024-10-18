@@ -10,7 +10,7 @@ export function Comment({
   id,
   children,
   hasComments,
-  replyingTo
+  replyingTo,
 }) {
   return (
     <section className="flex flex-col gap-4">
@@ -25,17 +25,39 @@ export function Comment({
             />
             <h3 className="font-bold text-DarkBlue">{author}</h3>
             {current.username === author ? (
-              <p className="bg-ModerateBlue text-white px-2 rounded-sm text-sm">you</p>
+              <p className="bg-ModerateBlue text-white px-2 rounded-sm text-sm">
+                you
+              </p>
             ) : (
               <></>
             )}
-            <p className="text-GrayishBlue">{createdAt}</p>
-            <button className="flex text-ModerateBlue ml-auto items-center gap-2 font-bold hover:opacity-50">
+            <p className="text-GrayishBlue mr-auto">{createdAt}</p>
+            {current.username === author ? (
+              <button className="text-SoftRed font-medium flex items-center gap-1 mr-2 hover:opacity-50">
+                <img src="../src/assets/images/icon-delete.svg"/>Delete
+              </button>
+            ) : (
+              <></>
+            )}
+            {current.username !== author ? (
+            <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
               <img src="../src/assets/images/icon-reply.svg" alt="reply" />
               Reply
+            </button>) : (
+              <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
+              <img src="../src/assets/images/icon-edit.svg" alt="edit" />
+              Edit
             </button>
+            )}
           </div>
-          <p className="text-GrayishBlue">{replyingTo !== undefined ? <b className="text-ModerateBlue">@{replyingTo} </b> : ""}{content}</p>
+          <p className="text-GrayishBlue">
+          {replyingTo !== undefined ? (
+              <b className="text-ModerateBlue">@{replyingTo} </b>
+            ) : (
+              ""
+            )}
+            {content}
+          </p>
         </div>
       </section>
       {hasComments ? (
