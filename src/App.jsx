@@ -4,6 +4,8 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { Comment } from "./components/comment";
 import { comments as data } from "./data/data.json";
+import { currentUser as current } from "./data/data.json"
+import { NewMessage } from "./components/NewMessage";
 
 function App() {
   return (
@@ -30,12 +32,13 @@ function App() {
                  createdAt={reply.createdAt}
                  score={reply.score}
                  replyingTo={reply.replyingTo}
-                 >
-                 {console.log(reply)}
-               </Comment>
+                 />
             ))}
           </Comment>
         ))}
+        <NewMessage
+          user={current}
+        ></NewMessage>
       </main>
     </>
   );
