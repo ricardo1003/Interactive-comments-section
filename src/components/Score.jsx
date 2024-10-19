@@ -9,7 +9,6 @@ export function Score({ score, id }) {
 
   const handlePChange = (event) => {
     if (!isPChecked) {
-      console.log(plusButton.src);
       setrealScore(realScore + 1);
       plusButton.src = "../src/assets/images/icon-plus-pressed.svg";
       setisMChecked(false);

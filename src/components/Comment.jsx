@@ -16,7 +16,7 @@ export function Comment({
     <section className="flex flex-col gap-4">
       <section className="bg-white rounded-xl p-6 flex">
         <Score score={score} id={id} />
-        <div className="mainInfo flex flex-col gap-2">
+        <div className="mainInfo flex flex-col gap-2 w-[100%]">
           <div className="user flex gap-2 items-center">
             <img
               src={profilePicture}
