@@ -29,7 +29,7 @@ export function Score({ score, id }) {
       setisPChecked(false);
       if (isPChecked) {
         setrealScore(realScore - 2);
-        plusButton.src = "../src/assets/images/icon-plus.svg"
+        plusButton.src = "../src/assets/images/icon-plus.svg";
       }
     } else {
       setrealScore(realScore + 1);

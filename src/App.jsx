@@ -6,7 +6,6 @@ import { Comment } from "./components/comment";
 import { comments as data } from "./data/data.json";
 import { currentUser as current } from "./data/data.json";
 import { NewMessage } from "./components/NewMessage";
-import { DeleteButton } from "./components/DeleteButton";
 import { comment } from "postcss";
 
 function App() {
@@ -16,8 +15,21 @@ function App() {
     setComments(data);
   }, []);
 
-  const addNewComment = (newComment) => {
-    comments.push(newComment);
+  const addNewComment = (
+    newComment,
+    type,
+    NofComment,
+    isReply,
+    parentComment
+  ) => {
+    type === "main"
+      ? setComments(comments.push(newComment))
+      : isReply
+      ? setComments(
+          comments[comments.indexOf(parentComment)].replies.push(newComment)
+        )
+      : setComments(comments[NofComment].replies.push(newComment));
+    console.log(NofComment, comments);
   };
 
   const deleteComment = (comment, isResponse, parentComment) => {
@@ -25,12 +37,10 @@ function App() {
       setComments(comments.splice(comment, 1));
       console.log(comments);
     } else {
-      console.log(comment);
-      console.log(isResponse);
-      console.log(parentComment);
-      console.log(comments)
-      setComments(comments[comments.indexOf(parentComment)].replies.splice(comment,1))
-      console.log(comments)
+      setComments(
+        comments[comments.indexOf(parentComment)].replies.splice(comment, 1)
+      );
+      console.log(comments);
     }
   };
 
@@ -41,6 +51,9 @@ function App() {
       <main className="flex flex-col max-w-[750px] mx-auto gap-4">
         {comments.map((comment, index) => (
           <Comment
+            length={comments.length + repliesLength.reduce((a, b) => a + b, 0)}
+            user={current}
+            onAddComment={addNewComment}
             deleteComment={deleteComment}
             isReply={false}
             NofComment={comments.indexOf(comment)}
@@ -58,6 +71,11 @@ function App() {
             </div>
             {comment.replies.map((reply) => (
               <Comment
+                length={
+                  comments.length + repliesLength.reduce((a, b) => a + b, 0)
+                }
+                user={current}
+                onAddComment={addNewComment}
                 deleteComment={deleteComment}
                 isReply={true}
                 parentComment={comment}
@@ -69,12 +87,14 @@ function App() {
                 profilePicture={reply.user.image.png}
                 createdAt={reply.createdAt}
                 score={reply.score}
-                replyingTo={reply.replyingTo}
+                replyingTo={comment.user.username}
               />
             ))}
           </Comment>
         ))}
         <NewMessage
+          isShown={true}
+          type={"main"}
           length={comments.length + repliesLength.reduce((a, b) => a + b, 0)}
           user={current}
           onAddComment={addNewComment}

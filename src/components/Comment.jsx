@@ -1,6 +1,9 @@
 import { Score } from "./Score";
 import { currentUser as current } from "../data/data.json";
 import { DeleteButton } from "./DeleteButton";
+import { ReplyButton } from "./ReplyButton";
+import { NewMessage } from "./NewMessage";
+import { useState } from "react";
 
 export function Comment({
   profilePicture,
@@ -16,7 +19,16 @@ export function Comment({
   isReply,
   deleteComment,
   parentComment,
+  length,
+  user,
+  onAddComment,
 }) {
+  const [isShown, setIsShown] = useState(false);
+
+  const showReplyBox = (isShown) => {
+    setIsShown(isShown);
+  };
+
   return (
     <section className="flex flex-col gap-4">
       <section className="bg-white rounded-xl p-6 flex">
@@ -38,10 +50,10 @@ export function Comment({
             )}
             <p className="text-GrayishBlue mr-auto">{createdAt}</p>
             {current.username !== author ? (
-              <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
-                <img src="../src/assets/images/icon-reply.svg" alt="reply" />
-                Reply
-              </button>
+              <ReplyButton
+                showReplyBox={showReplyBox}
+                NofComment={NofComment}
+              ></ReplyButton>
             ) : (
               <>
                 <DeleteButton
@@ -58,20 +70,26 @@ export function Comment({
             )}
           </div>
           <p className="text-GrayishBlue">
-            {replyingTo !== undefined ? (
-              <b className="text-ModerateBlue">@{replyingTo} </b>
-            ) : (
-              ""
-            )}
+            {isReply ? <b className="text-ModerateBlue">@{replyingTo} </b> : ""}
             {content}
           </p>
         </div>
       </section>
+      <NewMessage
+        parentComment={parentComment}
+        isReply={isReply}
+        NofComment={NofComment}
+        isShown={isShown}
+        length={length}
+        user={user}
+        type={"reply"}
+        onAddComment={onAddComment}
+        receptorUser={author}
+      ></NewMessage>
       {hasComments ? (
         <div className="flex flex-row">
           <div className="self-stretch w-[2px] bg-black/10 block mx-8"></div>
           <article className="flex flex-col gap-4 w-[100%]">{children}</article>
-          {/* {console.log(children[0])} */}
         </div>
       ) : (
         <></>
