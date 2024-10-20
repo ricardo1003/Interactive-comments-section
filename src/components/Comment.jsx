@@ -1,5 +1,6 @@
 import { Score } from "./Score";
 import { currentUser as current } from "../data/data.json";
+import { DeleteButton } from "./DeleteButton";
 
 export function Comment({
   profilePicture,
@@ -11,6 +12,10 @@ export function Comment({
   children,
   hasComments,
   replyingTo,
+  NofComment,
+  isReply,
+  deleteComment,
+  parentComment,
 }) {
   return (
     <section className="flex flex-col gap-4">
@@ -32,26 +37,28 @@ export function Comment({
               <></>
             )}
             <p className="text-GrayishBlue mr-auto">{createdAt}</p>
-            {current.username === author ? (
-              <button className="text-SoftRed font-medium flex items-center gap-1 mr-2 hover:opacity-50">
-                <img src="../src/assets/images/icon-delete.svg"/>Delete
+            {current.username !== author ? (
+              <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
+                <img src="../src/assets/images/icon-reply.svg" alt="reply" />
+                Reply
               </button>
             ) : (
-              <></>
-            )}
-            {current.username !== author ? (
-            <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
-              <img src="../src/assets/images/icon-reply.svg" alt="reply" />
-              Reply
-            </button>) : (
-              <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
-              <img src="../src/assets/images/icon-edit.svg" alt="edit" />
-              Edit
-            </button>
+              <>
+                <DeleteButton
+                  parentComment={parentComment}
+                  NofComment={NofComment}
+                  isReply={isReply}
+                  deleteComment={deleteComment}
+                ></DeleteButton>
+                <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
+                  <img src="../src/assets/images/icon-edit.svg" alt="edit" />
+                  Edit
+                </button>
+              </>
             )}
           </div>
           <p className="text-GrayishBlue">
-          {replyingTo !== undefined ? (
+            {replyingTo !== undefined ? (
               <b className="text-ModerateBlue">@{replyingTo} </b>
             ) : (
               ""
@@ -64,6 +71,7 @@ export function Comment({
         <div className="flex flex-row">
           <div className="self-stretch w-[2px] bg-black/10 block mx-8"></div>
           <article className="flex flex-col gap-4 w-[100%]">{children}</article>
+          {/* {console.log(children[0])} */}
         </div>
       ) : (
         <></>

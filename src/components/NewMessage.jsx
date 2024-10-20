@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { comments as data } from "../data/data.json";
 
-export function NewMessage({ user, onAddComment,lenght }) {
+export function NewMessage({ user, onAddComment,length }) {
   const textareaDoc = document.getElementById("addCommentArea");
 
   const [newComment, setNewComment] = useState("");
@@ -12,7 +11,7 @@ export function NewMessage({ user, onAddComment,lenght }) {
       console.log("pon algo pe");
     } else {
       const comment = {
-        id: `reply#${lenght + 1}`,
+        id: length + 1,
         content: textareaDoc.value.trim(),
         createdAt: "now",
         score: 0,
@@ -22,7 +21,6 @@ export function NewMessage({ user, onAddComment,lenght }) {
         },
         replies: [],
       };
-      console.log(data);
       onAddComment(comment);
       textareaDoc.value = "";
     }
