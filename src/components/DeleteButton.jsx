@@ -7,7 +7,6 @@ export function DeleteButton({
   parentComment,
 }) {
   const handleDeleted = () => {
-    console.log(NofComment);
     if (!isReply) {
       deleteComment(NofComment, false, parentComment);
     } else {

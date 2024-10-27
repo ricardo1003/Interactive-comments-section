@@ -23,24 +23,40 @@ function App() {
     parentComment
   ) => {
     type === "main"
-      ? setComments(comments.push(newComment))
+      ? setComments([...comments, newComment])
       : isReply
       ? setComments(
-          comments[comments.indexOf(parentComment)].replies.push(newComment)
+          comments.map((comment, index) =>
+            index === comments.indexOf(parentComment)
+              ? { ...comment, replies: [...comment.replies, newComment] }
+              : comment
+          )
         )
-      : setComments(comments[NofComment].replies.push(newComment));
-    console.log(NofComment, comments);
+      : setComments(
+          comments.map((comment, index) =>
+            index === NofComment
+              ? { ...comment, replies: [...comment.replies, newComment] }
+              : comment
+          )
+        );
   };
 
-  const deleteComment = (comment, isResponse, parentComment) => {
+  const deleteComment = (commentN, isResponse, parentComment) => {
     if (!isResponse) {
-      setComments(comments.splice(comment, 1));
-      console.log(comments);
+      setComments((prevComments) =>
+        prevComments.filter((_, idx) => idx !== commentN)
+      );
     } else {
       setComments(
-        comments[comments.indexOf(parentComment)].replies.splice(comment, 1)
+        comments.map((comment, index) =>
+          index === comments.indexOf(parentComment)
+            ? {
+                ...comment,
+                replies: comment.replies.filter((_, idx) => idx !== commentN),
+              }
+            : comment
+        )
       );
-      console.log(comments);
     }
   };
 
@@ -51,6 +67,7 @@ function App() {
       <main className="flex flex-col max-w-[750px] mx-auto gap-4">
         {comments.map((comment, index) => (
           <Comment
+            thisComment={comment}
             length={comments.length + repliesLength.reduce((a, b) => a + b, 0)}
             user={current}
             onAddComment={addNewComment}

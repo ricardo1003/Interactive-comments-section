@@ -10,16 +10,22 @@ export function NewMessage({
   receptorUser,
   isReply,
   parentComment,
+  showReplyBox
 }) {
-  const textareaDoc = document.getElementById("addCommentArea");
+  const textareaDoc = document.getElementById(`addCommentArea${type + NofComment + isReply}`);
 
   const [newComment, setNewComment] = useState("");
 
+  const hideReplyBox = ()=>{
+    type === "main" ?
+    <></>:
+    showReplyBox(false)
+  }
   const handlePressed = (event) => {
-    event.preventDefault();
     if (textareaDoc.value.trim() === "") {
       console.log("pon algo pe");
     } else {
+      
       const comment = {
         id: length + 1,
         content: textareaDoc.value.trim(),
@@ -44,24 +50,26 @@ export function NewMessage({
       <form
         action="newMessage"
         className="bg-white rounded-xl p-6 flex gap-2 justify-between items-start"
-        onSubmit={handlePressed}
       >
         <img src={user.image.png} alt={user.username} className="h-10" />
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           name="newComment"
-          id="addCommentArea"
+          id={`addCommentArea${type + NofComment + isReply}`}
           placeholder="Add a comment..."
           className="w-[100%] py-2 px-4 rounded-md border-[1px] border-solid border-GrayishBlue/50"
         ></textarea>
         <button
-          type="send"
+          type="button"
           className="bg-ModerateBlue text-white px-6 py-2 rounded-md"
+          onClick={()=>{handlePressed(); hideReplyBox();}}
         >
           {type === "main" ? "SEND" : "REPLY"}
         </button>
       </form>
     );
+  }else{
+    return(<></>)
   }
 }

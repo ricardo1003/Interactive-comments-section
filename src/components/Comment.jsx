@@ -4,6 +4,7 @@ import { DeleteButton } from "./DeleteButton";
 import { ReplyButton } from "./ReplyButton";
 import { NewMessage } from "./NewMessage";
 import { useState } from "react";
+import { EditButton } from "./EditButton";
 
 export function Comment({
   profilePicture,
@@ -22,6 +23,7 @@ export function Comment({
   length,
   user,
   onAddComment,
+  thisComment
 }) {
   const [isShown, setIsShown] = useState(false);
 
@@ -62,20 +64,18 @@ export function Comment({
                   isReply={isReply}
                   deleteComment={deleteComment}
                 ></DeleteButton>
-                <button className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50">
-                  <img src="../src/assets/images/icon-edit.svg" alt="edit" />
-                  Edit
-                </button>
+                <EditButton thisComment={thisComment} NofComment={NofComment}></EditButton>
               </>
             )}
           </div>
-          <p className="text-GrayishBlue">
+          <p className="text-GrayishBlue" id={`commentBody#${NofComment}`}>
             {isReply ? <b className="text-ModerateBlue">@{replyingTo} </b> : ""}
             {content}
           </p>
         </div>
       </section>
       <NewMessage
+        showReplyBox={showReplyBox}
         parentComment={parentComment}
         isReply={isReply}
         NofComment={NofComment}
