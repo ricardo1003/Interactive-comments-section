@@ -23,7 +23,7 @@ export function Comment({
   length,
   user,
   onAddComment,
-  thisComment
+  thisComment,
 }) {
   const [isShown, setIsShown] = useState(false);
 
@@ -31,6 +31,32 @@ export function Comment({
     setIsShown(isShown);
   };
 
+  const [commentStyles, setStyles] = useState("text-GrayishBlue");
+
+  const hideComment = (style) => {
+    setStyles(style);
+  };
+
+  const [editingStyles, setEditingStyles] = useState("hidden");
+
+  const showEditable = (style) => {
+    setEditingStyles(style);
+  };
+
+  const [commentContent, setContent] = useState(content)
+  
+  let newContent = ""
+
+  const handleTextChange = (event) =>{
+    newContent = event.target.value
+  }
+
+  const updateComment = ()=>{
+    hideComment("text-GrayishBlue") //reversing, it now shows it
+    showEditable("flex flex-col items-end gap-4 hidden") // and this one hides
+    setContent(newContent)
+  }
+  
   return (
     <section className="flex flex-col gap-4">
       <section className="bg-white rounded-xl p-6 flex">
@@ -64,14 +90,41 @@ export function Comment({
                   isReply={isReply}
                   deleteComment={deleteComment}
                 ></DeleteButton>
-                <EditButton thisComment={thisComment} NofComment={NofComment}></EditButton>
+                <EditButton
+                  showEditable={showEditable}
+                  hideComment={hideComment}
+                  thisComment={thisComment}
+                  NofComment={NofComment}
+                  id={id}
+                  isReply={isReply}
+                >
+                </EditButton>
               </>
             )}
           </div>
-          <p className="text-GrayishBlue" id={`commentBody#${NofComment}`}>
+          <p
+            className={commentStyles}
+            id={`commentBody#${NofComment}${isReply}`}
+          >
             {isReply ? <b className="text-ModerateBlue">@{replyingTo} </b> : ""}
-            {content}
+            {commentContent}
           </p>
+          <form action="editing" className={editingStyles}>
+            <textarea
+              defaultValue={commentContent}
+              name="editing"
+              id={`editing${id}`}
+              className="w-[100%] py-2 px-4 rounded-md border-[1px] border-solid border-GrayishBlue/50"
+              onChange={handleTextChange}
+            ></textarea>
+            <button
+              type="button"
+              className="bg-ModerateBlue text-white px-6 py-2 rounded-md"
+              onClick={updateComment}
+            >
+              UPDATE
+            </button>
+          </form>
         </div>
       </section>
       <NewMessage
