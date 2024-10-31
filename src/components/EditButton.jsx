@@ -1,16 +1,20 @@
 import { comment } from "postcss";
 import { useState } from "react";
 
-export function EditButton({ thisComment, NofComment, id, isReply, hideComment, showEditable }) {
-
+export function EditButton({
+  thisComment,
+  NofComment,
+  id,
+  isReply,
+  hideComment,
+  showEditable,
+}) {
   const editComment = () => {
-    const bodyOfComment = document.getElementById(`commentBody#${NofComment}${isReply}`);
-    console.log(bodyOfComment);
-    console.log(thisComment);
-    console.log(NofComment);
-    console.log(id);
-    hideComment("text-GrayishBlue hidden")
-    showEditable("flex flex-col items-end gap-4")
+    const bodyOfComment = document.getElementById(
+      `commentBody#${NofComment}${isReply}`
+    );
+    hideComment("text-GrayishBlue hidden");
+    showEditable("flex flex-col items-end gap-4");
   };
   return (
     <button

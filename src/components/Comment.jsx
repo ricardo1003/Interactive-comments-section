@@ -5,6 +5,7 @@ import { ReplyButton } from "./ReplyButton";
 import { NewMessage } from "./NewMessage";
 import { useState } from "react";
 import { EditButton } from "./EditButton";
+import { DeleteConfirmation } from "./deleteConfirmation";
 
 export function Comment({
   profilePicture,
@@ -43,24 +44,28 @@ export function Comment({
     setEditingStyles(style);
   };
 
-  const [commentContent, setContent] = useState(content)
-  
-  let newContent = ""
+  const [commentContent, setContent] = useState(content);
 
-  const handleTextChange = (event) =>{
-    newContent = event.target.value
-  }
+  let newContent = content;
 
-  const updateComment = ()=>{
-    hideComment("text-GrayishBlue") //reversing, it now shows it
-    showEditable("flex flex-col items-end gap-4 hidden") // and this one hides
-    setContent(newContent)
-  }
-  
+  const handleTextChange = (event) => {
+    newContent = event.target.value;
+  };
+
+  const updateComment = () => {
+    hideComment("text-GrayishBlue"); //reversing, it now shows it
+    showEditable("flex flex-col items-end gap-4 hidden"); // and this one hides
+    setContent(newContent);
+  };
+
+  const [deleteConfirmationStyles, setDCStyles] = useState(
+    "fixed w-[100vw] h-[100vh] bg-black/50 left-0 top-0 flex justify-center items-center backdrop-blur-25 hidden"
+  );
+
   return (
     <section className="flex flex-col gap-4">
       <section className="bg-white rounded-xl p-6 flex">
-        <Score score={score} id={id} />
+        <Score score={score} id={id} NofComment={NofComment} length={length} />
         <div className="mainInfo flex flex-col gap-2 w-[100%]">
           <div className="user flex gap-2 items-center">
             <img
@@ -85,11 +90,20 @@ export function Comment({
             ) : (
               <>
                 <DeleteButton
+                  setDCStyles={setDCStyles}
                   parentComment={parentComment}
                   NofComment={NofComment}
                   isReply={isReply}
                   deleteComment={deleteComment}
                 ></DeleteButton>
+                <DeleteConfirmation
+                  setDCStyles={setDCStyles}
+                  deleteConfirmationStyles={deleteConfirmationStyles}
+                  parentComment={parentComment}
+                  NofComment={NofComment}
+                  isReply={isReply}
+                  deleteComment={deleteComment}
+                ></DeleteConfirmation>
                 <EditButton
                   showEditable={showEditable}
                   hideComment={hideComment}
@@ -97,8 +111,7 @@ export function Comment({
                   NofComment={NofComment}
                   id={id}
                   isReply={isReply}
-                >
-                </EditButton>
+                ></EditButton>
               </>
             )}
           </div>
@@ -114,12 +127,14 @@ export function Comment({
               defaultValue={commentContent}
               name="editing"
               id={`editing${id}`}
-              className="w-[100%] py-2 px-4 rounded-md border-[1px] border-solid border-GrayishBlue/50"
+              className={
+                "w-[100%] py-2 px-4 rounded-md border-[1px] border-solid border-GrayishBlue/50 focus:border-ModerateBlue focus:border-[2px] focus:outline-none"
+              }
               onChange={handleTextChange}
             ></textarea>
             <button
               type="button"
-              className="bg-ModerateBlue text-white px-6 py-2 rounded-md"
+              className="bg-ModerateBlue text-white px-6 py-2 rounded-md hover:opacity-50"
               onClick={updateComment}
             >
               UPDATE
