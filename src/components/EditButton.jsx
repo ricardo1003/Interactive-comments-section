@@ -21,7 +21,7 @@ export function EditButton({
       className="flex text-ModerateBlue items-center gap-2 font-bold hover:opacity-50"
       onClick={editComment}
     >
-      <img src="../../src/assets/images/icon-edit.svg" alt="edit" />
+      <img src="./assets/images/icon-edit.svg" alt="edit" />
       Edit
     </button>
   );

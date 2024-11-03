@@ -10,30 +10,30 @@ export function Score({ score, id }) {
   const handlePChange = (event) => {
     if (!isPChecked) {
       setrealScore(realScore + 1);
-      plusButton.src = "../src/assets/images/icon-plus-pressed.svg";
+      plusButton.src = "./assets/images/icon-plus-pressed.svg";
       setisMChecked(false);
       if (isMChecked) {
         setrealScore(realScore + 2);
-        minusButton.src = "../src/assets/images/icon-minus.svg";
+        minusButton.src = "./assets/images/icon-minus.svg";
       }
     } else {
       setrealScore(realScore - 1);
-      plusButton.src = "../src/assets/images/icon-plus.svg";
+      plusButton.src = "./assets/images/icon-plus.svg";
     }
     setisPChecked(event.target.checked);
   };
   const handleMChange = (event) => {
     if (!isMChecked) {
       setrealScore(realScore - 1);
-      minusButton.src = "../src/assets/images/icon-minus-pressed.svg";
+      minusButton.src = "./assets/images/icon-minus-pressed.svg";
       setisPChecked(false);
       if (isPChecked) {
         setrealScore(realScore - 2);
-        plusButton.src = "../src/assets/images/icon-plus.svg";
+        plusButton.src = "./assets/images/icon-plus.svg";
       }
     } else {
       setrealScore(realScore + 1);
-      minusButton.src = "../src/assets/images/icon-minus.svg";
+      minusButton.src = "./assets/images/icon-minus.svg";
     }
     setisMChecked(event.target.checked);
   };
@@ -54,7 +54,7 @@ export function Score({ score, id }) {
         />
         <img
           id={`addImg${id}`}
-          src="../src/assets/images/icon-plus.svg"
+          src="./assets/images/icon-plus.svg"
           alt={`add${id}`}
           className="relative"
         />
@@ -74,7 +74,7 @@ export function Score({ score, id }) {
         />
         <img
           id={`subtractImg${id}`}
-          src="../src/assets/images/icon-minus.svg"
+          src="./assets/images/icon-minus.svg"
           alt={`subtract${id}`}
           className="relative self-center"
         />

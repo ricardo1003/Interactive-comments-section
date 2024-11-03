@@ -17,7 +17,7 @@ export function DeleteButton({
       className="text-SoftRed font-medium flex items-center gap-1 mr-2 hover:opacity-50 "
       onClick={handleDeleted}
     >
-      <img src="../src/assets/images/icon-delete.svg" />
+      <img src="./assets/images/icon-delete.svg" />
       Delete
     </button>
   );
