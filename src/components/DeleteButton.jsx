@@ -9,7 +9,7 @@ export function DeleteButton({
 }) {
   const handleDeleted = () => {
       setDCStyles(
-        "fixed w-[100vw] h-[100vh] bg-black/50 left-0 top-0 flex justify-center items-center backdrop-blur-[2.5px]"
+        "fixed w-[100vw] h-[100vh] bg-black/50 left-0 top-0 flex justify-center items-center backdrop-blur-[2.5px] z-10"
       );
   };
   return (

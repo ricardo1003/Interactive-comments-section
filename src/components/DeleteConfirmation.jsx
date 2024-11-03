@@ -23,7 +23,7 @@ export function DeleteConfirmation({
   };
   return (
     <div className={deleteConfirmationStyles}>
-      <div className="bg-white w-[375px] p-6 rounded-md">
+      <div className="bg-white w-[375px] p-6 rounded-md mx-4">
         <h3 className="text-xl font-semibold text-DarkBlue mb-4">
           Delete Comment
         </h3>

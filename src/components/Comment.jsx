@@ -64,7 +64,7 @@ export function Comment({
 
   return (
     <section className="flex flex-col gap-4">
-      <section className="bg-white rounded-xl p-6 flex">
+      <section className="bg-white rounded-xl p-6 flex max-tn:flex-col-reverse relative">
         <Score score={score} id={id} NofComment={NofComment} length={length} />
         <div className="mainInfo flex flex-col gap-2 w-[100%]">
           <div className="user flex gap-2 items-center">
@@ -82,38 +82,40 @@ export function Comment({
               <></>
             )}
             <p className="text-GrayishBlue mr-auto">{createdAt}</p>
-            {current.username !== author ? (
-              <ReplyButton
-                showReplyBox={showReplyBox}
-                NofComment={NofComment}
-              ></ReplyButton>
-            ) : (
-              <>
-                <DeleteButton
-                  setDCStyles={setDCStyles}
-                  parentComment={parentComment}
+            <div className="flex max-tn:absolute max-tn:right-6 max-tn:bottom-6">
+              {current.username !== author ? (
+                <ReplyButton
+                  showReplyBox={showReplyBox}
                   NofComment={NofComment}
-                  isReply={isReply}
-                  deleteComment={deleteComment}
-                ></DeleteButton>
-                <DeleteConfirmation
-                  setDCStyles={setDCStyles}
-                  deleteConfirmationStyles={deleteConfirmationStyles}
-                  parentComment={parentComment}
-                  NofComment={NofComment}
-                  isReply={isReply}
-                  deleteComment={deleteComment}
-                ></DeleteConfirmation>
-                <EditButton
-                  showEditable={showEditable}
-                  hideComment={hideComment}
-                  thisComment={thisComment}
-                  NofComment={NofComment}
-                  id={id}
-                  isReply={isReply}
-                ></EditButton>
-              </>
-            )}
+                ></ReplyButton>
+              ) : (
+                <>
+                  <DeleteButton
+                    setDCStyles={setDCStyles}
+                    parentComment={parentComment}
+                    NofComment={NofComment}
+                    isReply={isReply}
+                    deleteComment={deleteComment}
+                  ></DeleteButton>
+                  <DeleteConfirmation
+                    setDCStyles={setDCStyles}
+                    deleteConfirmationStyles={deleteConfirmationStyles}
+                    parentComment={parentComment}
+                    NofComment={NofComment}
+                    isReply={isReply}
+                    deleteComment={deleteComment}
+                  ></DeleteConfirmation>
+                  <EditButton
+                    showEditable={showEditable}
+                    hideComment={hideComment}
+                    thisComment={thisComment}
+                    NofComment={NofComment}
+                    id={id}
+                    isReply={isReply}
+                  ></EditButton>
+                </>
+              )}
+            </div>
           </div>
           <p
             className={commentStyles}
@@ -156,7 +158,7 @@ export function Comment({
       ></NewMessage>
       {hasComments ? (
         <div className="flex flex-row">
-          <div className="self-stretch w-[2px] bg-black/10 block mx-8"></div>
+          <div className="self-stretch w-[2px] bg-black/10 block mx-8 max-tn:mx-[2.5%] max-tn:ml-0"></div>
           <article className="flex flex-col gap-4 w-[100%]">{children}</article>
         </div>
       ) : (

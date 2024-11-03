@@ -20,6 +20,13 @@ export default {
       backgroundImage: {
         plusButton: "../src/assets/images/icon-plus.svg",
         minusBUtton: "../src/assets/images/icon-minus.svg",
+      },
+      screens:{
+        "max-tn": {max: "603px"},
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
       }
     },
   },

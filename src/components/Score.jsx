@@ -39,7 +39,7 @@ export function Score({ score, id }) {
   };
 
   return (
-    <div className="bg-LightGray p-4 px-2 flex flex-col justify-between items-center rounded-xl min-w-[40px] max-h-[95px] mr-5">
+    <div className="bg-LightGray p-4 px-2 flex flex-col justify-between items-center rounded-xl min-w-[40px] max-h-[95px] mr-5 max-tn:flex-row max-tn:self-start max-tn:w-[100px] max-tn:h-[35px] max-tn:content-center max-tn:mr-[128.32px]">
       <label
         htmlFor={`add${id}`}
         className="h-[11px] hover:cursor-pointer text-LightGrayishBlue"
@@ -76,7 +76,7 @@ export function Score({ score, id }) {
           id={`subtractImg${id}`}
           src="../src/assets/images/icon-minus.svg"
           alt={`subtract${id}`}
-          className="relative self-end"
+          className="relative self-center"
         />
       </label>
     </div>
